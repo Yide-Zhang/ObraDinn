@@ -164,7 +164,7 @@ function renderRow() {
         tabindex="${isActive ? 0 : -1}"
         data-id="${item.id}"
       >
-        <span class="icon-frame"><img src="${ICON_BASE}${item.icon}" alt="${escapeHtml(item.title)}" /></span>
+        <span class="icon-frame"><img src="${ICON_BASE}${item.icon}" alt="${escapeHtml(item.title)}" draggable="false" /></span>
         <span class="icon-label">${item.index}</span>
       </button>`;
     })

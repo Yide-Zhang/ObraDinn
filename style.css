@@ -41,6 +41,9 @@ body {
   color: var(--paper);
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
+  /* Nothing on this page is meant to be drag-selected or dragged around. */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 a {
@@ -48,11 +51,23 @@ a {
   text-decoration: none;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 button,
-input {
+input,
+textarea {
   font-family: inherit;
   color: inherit;
   border-radius: 0;
+}
+
+/* Form fields stay usable even though selection is off elsewhere. */
+input,
+textarea {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .svg-defs {
