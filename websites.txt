@@ -1,0 +1,34 @@
+save: 
+https://github.com/Yide-Zhang/ObraDinn-SaveTool
+
+anti_motion_sickness (NOT BY ME, created by Jobus0):
+https://github.com/Jobus0/ObraDinn-AntiMotionSickness
+
+cn_refined:
+https://github.com/Yide-Zhang/ObraDinn-CN_Refined
+
+difficulty:
+https://github.com/Yide-Zhang/ObraDinn-HardCore
+[Additional]
+- Baidu: https://pan.baidu.com/s/1SdNoex1_KAeTDF8iUNc8Sg?pwd=7uy4
+- 123: https://4006811727.share.123pan.cn/123pan/R7kkwh-YUrhh?pwd=yNWR#
+- Quark: https://pan.quark.cn/s/bed6d36b61ed?pwd=kM3Y
+- Google: https://drive.google.com/drive/folders/1At3t12pNFlFYj3nFGkzxBVu9ICnyWAid?usp=sharing
+
+hints_and_check:
+https://github.com/Yide-Zhang/ObraDinn-HintsAndCheck
+[Additional]
+- Website:
+	https://yide-zhang.github.io/ObraDinn-HaC
+
+instructor:
+https://github.com/Yide-Zhang/ObraDinn-Instructor
+
+teleporter (NOT CREATED BY ME, ORIGINAL by Leuthil):
+https://github.com/Yide-Zhang/ObraDinn_Teleport-ChineseVer
+[Additional]
+- Support the creator!
+	https://www.nexusmods.com/returnoftheobradinn/mods/7
+
+wiki:
+https://obradinn.fandom.com/wiki/Return_of_the_Obra_Dinn_Wiki

@@ -1,0 +1,11 @@
+# Original full-size fonts are only needed to regenerate the subsetted woff2 files.
+# Keep them on disk locally, but out of the repository.
+assets/original_fonts/
+
+# Temporary character list written by tools/subset-fonts.py.
+assets/fonts/_subset-chars.txt
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini

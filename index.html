@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#333319" />
+    <meta
+      name="description"
+      content="Return of the Obra Dinn 中文资源整合器：存档、汉化、提示、传送等社区资源索引。"
+    />
+    <title>OBRA DINN / 资源整合器</title>
+    <link rel="icon" type="image/png" sizes="128x128" href="assets/ShipIcon_dark.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="128x128"
+      href="assets/ShipIcon.png"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="128x128"
+      href="assets/ShipIcon_dark.png"
+      media="(prefers-color-scheme: light)"
+    />
+    <link rel="apple-touch-icon" href="assets/ShipIcon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/source-han-serif-sc-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/source-han-serif-sc-900.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true" focusable="false">
+      <filter id="invert-palette" color-interpolation-filters="sRGB">
+        <feColorMatrix
+          type="matrix"
+          values="-1 0 0 0 1.098
+                  0 -1 0 0 1.2
+                  0 0 -1 0 1.098
+                  0 0 0 1 0"
+        />
+      </filter>
+    </svg>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <img class="brand-icon" src="assets/ShipIcon.png" alt="" />
+        <span class="brand-name">船上档案</span>
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">菜单</button>
+      <nav id="main-nav" class="main-nav" aria-label="主导航">
+        <a href="#resources">资源目录</a>
+        <a href="#about">关于本站</a>
+        <a href="https://github.com/Yide-Zhang" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">RETURN OF THE OBRA DINN</p>
+        <h1>船上档案<em>Resource Index</em></h1>
+        <p class="hero-intro">八项面向中文玩家的 Obra Dinn 社区资源：存档、汉化、提示、传送与实用工具。</p>
+        <a class="square-button" href="#resources">开始查阅</a>
+      </section>
+
+      <section class="archive" id="resources">
+        <div class="archive-head">
+          <p class="eyebrow">工具一览 / TOOL INDEX</p>
+        </div>
+        <div class="icon-row" id="icon-row" role="tablist" aria-label="资源图标"></div>
+        <div class="panel is-animating" id="resource-panel" role="tabpanel"></div>
+      </section>
+
+      <section class="about" id="about">
+        <div class="about-body">
+          <h2>献给每一个<span>仍在调查的人</span></h2>
+          <p>
+            本站是非官方的社区资源索引，列举了包括本站作者在内制作的数个游戏资源工具。所有资源的内容、版权与解释权均归各自作者所有。
+          </p>
+          <p class="about-note">部分资源并非本站作者制作，下载或使用前请先阅读对应项目的说明与许可。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="footer-repo" href="https://github.com/Yide-Zhang/ObraDinn" target="_blank" rel="noreferrer">
+        OBRA DINN / RESOURCE INDEX
+      </a>
+      <span class="footer-note">Lost at Sea, 1803</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
