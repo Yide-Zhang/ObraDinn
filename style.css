@@ -391,6 +391,24 @@ input {
   line-height: 1.9;
 }
 
+.square-button.is-disabled {
+  border-style: dashed;
+  color: var(--paper);
+  cursor: not-allowed;
+}
+
+.square-button.is-disabled:hover {
+  background: transparent;
+  color: var(--paper);
+}
+
+.download-hint {
+  margin: 16px 0 0;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+}
+
 .about {
   border-top: var(--line);
   text-align: center;

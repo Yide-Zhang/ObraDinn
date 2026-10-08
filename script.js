@@ -1,5 +1,10 @@
 const ICON_BASE = "assets/app_icons/";
 
+// Each entry maps a system to the pattern that identifies the matching release asset.
+// A system with no entry is treated as unsupported for that tool.
+const WIN = "win";
+const MAC = "mac";
+
 const resources = [
   {
     id: "save",
@@ -10,6 +15,7 @@ const resources = [
     desc: "备份、恢复与整理《Return of the Obra Dinn》的存档文件，让每一次调查进度都能随时取回。",
     platform: "Windows / macOS",
     repo: "Yide-Zhang/ObraDinn-SaveTool",
+    assets: { [WIN]: /windows/i, [MAC]: /mac\s?os|macosx|darwin/i },
     links: [{ label: "GitHub 项目", href: "https://github.com/Yide-Zhang/ObraDinn-SaveTool" }],
   },
   {
@@ -21,6 +27,7 @@ const resources = [
     desc: "降低画面晃动带来的不适感，让长时间的推理调查更舒适。",
     platform: "Windows（暂不支持 macOS）",
     repo: "Jobus0/ObraDinn-AntiMotionSickness",
+    assets: { [WIN]: /\.zip$/i },
     links: [
       { label: "GitHub 项目", href: "https://github.com/Jobus0/ObraDinn-AntiMotionSickness" },
     ],
@@ -35,6 +42,7 @@ const resources = [
     desc: "精修与润色游戏文本，让措辞更为准确，从而使你的推理体验趋于完美。另有和谐敏感文字功能，可使直播、上传视频不受拦阻。",
     platform: "Windows / macOS",
     repo: "Yide-Zhang/ObraDinn-CN_Refined",
+    assets: { [WIN]: /windows/i, [MAC]: /mac\s?os|macosx|darwin/i },
     links: [{ label: "GitHub 项目", href: "https://github.com/Yide-Zhang/ObraDinn-CN_Refined" }],
   },
   {
@@ -46,6 +54,7 @@ const resources = [
     desc: "提高游戏验证下落的数量阈值。有多个档位可选。",
     platform: "Windows / macOS",
     repo: "Yide-Zhang/ObraDinn-HardCore",
+    assets: { [WIN]: /windows/i, [MAC]: /mac\s?os|macosx|darwin/i },
     links: [
       { label: "GitHub 项目", href: "https://github.com/Yide-Zhang/ObraDinn-HardCore" },
       {
@@ -76,6 +85,7 @@ const resources = [
     desc: "可给出逐步提示并按照游戏逻辑验证你的猜想。",
     platform: "Windows / macOS",
     repo: "Yide-Zhang/ObraDinn-HintsAndCheck",
+    assets: { [WIN]: /windows/i, [MAC]: /mac\s?os|macosx|darwin/i },
     links: [
       { label: "GitHub 项目", href: "https://github.com/Yide-Zhang/ObraDinn-HintsAndCheck" },
       { label: "网页版", href: "https://yide-zhang.github.io/ObraDinn-HaC" },
@@ -91,6 +101,7 @@ const resources = [
     desc: "面向新上船调查员的入门指引，讲解基本机制、笔记用法、游戏机制和调查方法。",
     platform: "Windows / macOS",
     repo: "Yide-Zhang/ObraDinn-Instructor",
+    assets: { [WIN]: /windows/i, [MAC]: /mac\s?os|macosx|darwin/i },
     links: [{ label: "GitHub 项目", href: "https://github.com/Yide-Zhang/ObraDinn-Instructor" }],
   },
   {
@@ -102,6 +113,7 @@ const resources = [
     desc: "可以在不同闪回之间传送，减少重复往返，把时间留给推理本身。",
     platform: "Windows（暂不支持 macOS）",
     repo: "Yide-Zhang/ObraDinn_Teleport-ChineseVer",
+    assets: { [WIN]: /\.dll$/i },
     links: [
       {
         label: "中文版项目",
@@ -162,7 +174,10 @@ function renderRow() {
 function renderPanel() {
   const item = resources.find((entry) => entry.id === activeId);
   const releaseLink = item.repo
-    ? `<a class="square-button" href="https://github.com/${item.repo}/releases/latest" target="_blank" rel="noreferrer">下载最新版</a>`
+    ? `<a class="square-button" data-download="${item.id}" href="https://github.com/${item.repo}/releases/latest" target="_blank" rel="noreferrer">下载最新版</a>`
+    : "";
+  const downloadHint = item.repo
+    ? `<p class="download-hint" data-hint="${item.id}">正在获取最新版本信息…</p>`
     : "";
   const specs = item.platform
     ? `<dl class="panel-specs"><div><dt>平台</dt><dd>${escapeHtml(item.platform)}</dd></div></dl>`
@@ -186,12 +201,87 @@ function renderPanel() {
       <p class="panel-desc">${escapeHtml(item.desc)}</p>
       ${specs}
       <div class="panel-links">${releaseLink}${links}</div>
+      ${downloadHint}
       ${item.note ? `<p class="panel-note">${escapeHtml(item.note)}</p>` : ""}
     </div>`;
 
   panel.classList.remove("is-animating");
   void panel.offsetWidth;
   panel.classList.add("is-animating");
+
+  if (item.repo) hydrateDownload(item);
+}
+
+const USER_OS = detectOS();
+const releaseCache = new Map();
+
+function detectOS() {
+  const source = `${navigator.userAgentData?.platform ?? ""} ${navigator.platform ?? ""} ${
+    navigator.userAgent ?? ""
+  }`.toLowerCase();
+  if (/mac|iphone|ipad|ipod/.test(source)) return MAC;
+  if (/win/.test(source)) return WIN;
+  return "other";
+}
+
+function formatSize(bytes) {
+  const mb = bytes / 1024 / 1024;
+  return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`;
+}
+
+function fetchLatestRelease(repo) {
+  if (!releaseCache.has(repo)) {
+    const request = fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
+      headers: { Accept: "application/vnd.github+json" },
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .catch(() => null);
+    releaseCache.set(repo, request);
+  }
+  return releaseCache.get(repo);
+}
+
+// Points the download button straight at the release asset for the visitor's system,
+// falling back to the release page when the system is unknown or the lookup fails.
+async function hydrateDownload(item) {
+  const query = (selector) => panel.querySelector(selector);
+  const link = query(`[data-download="${item.id}"]`);
+  const hint = query(`[data-hint="${item.id}"]`);
+  if (!link) return;
+
+  const matcher = item.assets?.[USER_OS];
+  if (!matcher) {
+    if (USER_OS === "other") {
+      if (hint) hint.textContent = "未能识别你的系统，点击将前往发布页手动选择文件。";
+      return;
+    }
+    link.classList.add("is-disabled");
+    link.removeAttribute("href");
+    link.removeAttribute("target");
+    link.removeAttribute("rel");
+    link.setAttribute("aria-disabled", "true");
+    if (hint) hint.textContent = `该工具暂不支持 ${USER_OS === MAC ? "macOS" : "Windows"}。`;
+    return;
+  }
+
+  const release = await fetchLatestRelease(item.repo);
+  // The panel may have been re-rendered while the request was in flight.
+  if (query(`[data-download="${item.id}"]`) !== link) return;
+
+  const asset = release?.assets?.find((entry) => matcher.test(entry.name));
+  if (!asset) {
+    if (hint) hint.textContent = "无法获取下载直链，点击将前往发布页。";
+    return;
+  }
+
+  link.href = asset.browser_download_url;
+  link.setAttribute("download", asset.name);
+  link.removeAttribute("target");
+  link.classList.add("is-direct");
+  if (hint) {
+    const osLabel = USER_OS === MAC ? "macOS" : "Windows";
+    hint.textContent = `${osLabel} 版 · ${release.tag_name} · ${formatSize(asset.size)}`;
+  }
 }
 
 function selectResource(id, moveFocus = false) {
