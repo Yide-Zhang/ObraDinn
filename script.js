@@ -59,15 +59,15 @@ const resources = [
       { label: "GitHub 项目", href: "https://github.com/Yide-Zhang/ObraDinn-HardCore" },
       {
         label: "百度网盘",
-        href: "https://pan.baidu.com/s/1SdNoex1_KAeTDF8iUNc8Sg?******",
+        href: "https://pan.baidu.com/s/1SdNoex1_KAeTDF8iUNc8Sg?pwd=7uy4",
         mirror: true,
       },
       {
         label: "123 云盘",
-        href: "https://4006811727.share.123pan.cn/123pan/R7kkwh-YUrhh?******",
+        href: "https://4006811727.share.123pan.cn/123pan/R7kkwh-YUrhh?pwd=yNWR#",
         mirror: true,
       },
-      { label: "夸克网盘", href: "https://pan.quark.cn/s/bed6d36b61ed?******", mirror: true },
+      { label: "夸克网盘", href: "https://pan.quark.cn/s/bed6d36b61ed?pwd=kM3Y", mirror: true },
       {
         label: "Google Drive",
         href: "https://drive.google.com/drive/folders/1At3t12pNFlFYj3nFGkzxBVu9ICnyWAid?usp=sharing",
